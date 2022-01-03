@@ -1,0 +1,58 @@
+<header>
+  <!-- NAVBAR START -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Split</a>
+      <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+              class="navbar-toggler"
+              data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a aria-current="page" class="nav-link active" routerLink="/about">About</a>
+          </li>
+        </ul>
+        <!-- NAVBAR RIGHT START -->
+        <ul class="nav navbar-nav navbar-right">
+          <!-- NEW DROPDOWN START -->
+          <li *ngIf="isLoggedIn" class="nav-item dropdown">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               id="navbarDropdown3"
+               role="button">
+              New
+            </a>
+            <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/property">New Property</a></li>
+              <li><a class="dropdown-item" routerLink="/expense">New Expense</a></li>
+            </ul>
+          </li>
+          <!-- NEW DROPDOWN END -->
+          <!-- ACCOUNT DROPDOWN START -->
+          <li class="nav-item dropdown">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               id="navbarDropdown2"
+               role="button">
+              Account
+            </a>
+            <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/register">Register</a>
+              </li>
+              <li><a class="dropdown-item" routerLink="/login">Login</a></li>
+              <li *ngIf="isLoggedIn">
+                <hr class="dropdown-divider">
+              </li>
+              <li *ngIf="isLoggedIn">
+                <button (click)="doLogout()" class="dropdown-item" type="button">Logout</button>
+              </li>
+            </ul>
+          </li>
+          <!-- ACCOUNT DROPDOWN END -->
+        </ul>
+        <!-- NAVBAR RIGHT END -->
+      </div>
+    </div>
+  </nav>
+  <!-- NAVBAR END -->
+</header>
