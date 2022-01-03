@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { LoginDto } from '../../dtos/LoginDto';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,13 @@ export class AuthService {
   }
 
   public validate(username: string, password: string) {
-    return this.httpClient.post('/api/users/login', { username, password });
+    const body = new HttpParams()
+      .set('username', username)
+      .set('password', password);
+
+    return this.httpClient.post<LoginDto>(
+      `http://localhost:4200/api/users/login`,
+      body
+    );
   }
 }

@@ -18,9 +18,13 @@ export class LoginComponent implements OnInit {
   doLogin() {
     this.authService
       .validate(this.username, this.password)
-      .subscribe((response: any) => {
-        this.authService.setUserInfo({ user: response['user'] });
-        this.router.navigate(['home']);
+      .subscribe((value) => {
+        if (value.login_status === 'FAILURE') {
+          window.alert('Invalid login details');
+        }
+        if (value.login_status === 'SUCCESS') {
+          this.router.navigate(['/']);
+        }
       });
   }
 }
