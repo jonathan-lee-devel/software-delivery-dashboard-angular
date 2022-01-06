@@ -20,6 +20,7 @@ import { ForbiddenComponent } from './components/pages/error/forbidden/forbidden
 import { JobComponent } from './components/pages/job/job.component';
 import { JobsComponent } from './components/pages/jobs/jobs.component';
 import { MetricsComponent } from './components/pages/metrics/metrics.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MetricsComponent } from './components/pages/metrics/metrics.component';
     JobComponent,
     JobsComponent,
     MetricsComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

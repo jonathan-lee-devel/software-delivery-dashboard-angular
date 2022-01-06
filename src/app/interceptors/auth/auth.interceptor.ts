@@ -48,12 +48,32 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private handleAuthError(error: HttpErrorResponse): Observable<any> {
     if (error.status === 400) {
-      window.alert(JSON.stringify(error.error.errors[0].msg));
+      const modalTitle = document.getElementById('exampleModalLabel');
+      if (modalTitle) {
+        modalTitle.innerText = 'Registration Error';
+      }
+
+      const modalText = document.getElementById('modalText');
+      if (modalText) {
+        modalText.innerText = error.error.errors[0].msg;
+      }
     }
 
     if (error.status === 401) {
       this.authService.logout();
-      window.alert('Invalid login credentials');
+      const modalTitle = document.getElementById('exampleModalLabel');
+      if (modalTitle) {
+        modalTitle.innerText = 'Authentication Error';
+      }
+      const modalText = document.getElementById('modalText');
+      if (modalText) {
+        modalText.innerText = 'Invalid username or password';
+      }
+      // @ts-ignore
+      const modal = new bootstrap.Modal(document.getElementById('modal'), {});
+      if (modal) {
+        modal.show();
+      }
       return of(error.message);
     }
 
@@ -62,7 +82,14 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     if (error.status === 409) {
-      window.alert('User already exists!');
+      const modalTitle = document.getElementById('exampleModalLabel');
+      if (modalTitle) {
+        modalTitle.innerText = 'Registration Error';
+      }
+      const modalText = document.getElementById('modalText');
+      if (modalText) {
+        modalText.innerText = 'User already exists';
+      }
     }
     throw error;
   }
