@@ -1,1 +1,68 @@
-<p>register works!</p>
+<div class="sidenav">
+  <div class="login-main-text">
+    <h2>Software Delivery Dashboard</h2>
+    <p>Login or register from here to access.</p>
+  </div>
+</div>
+<div class="main">
+  <div class="col-md-6 col-sm-12">
+    <div class="login-form">
+      <form id="form">
+        <div class="form-group">
+          <label for="emailInput">E-mail</label>
+          <input class="form-control" id="emailInput" name="email" placeholder="email@ericsson.com"
+                 type="email">
+          <small>Only valid Ericsson e-mail addresses are accepted</small>
+        </div>
+        <div class="form-group">
+          <label for="firstNameInput">First Name</label>
+          <input class="form-control" id="firstNameInput" name="firstname" placeholder="First Name"
+                 type="text">
+        </div>
+        <div class="form-group">
+          <label for="lastNameInput">Last Name</label>
+          <input class="form-control" id="lastNameInput" name="lastname" placeholder="Last Name"
+                 type="text">
+        </div>
+        <div class="form-group">
+          <label for="passwordInput">Password</label>
+          <input class="form-control" id="passwordInput" name="password" placeholder="Password"
+                 type="password">
+        </div>
+        <div class="form-group">
+          <label for="confirmPasswordInput">Confirm Password</label>
+          <input class="form-control" id="confirmPasswordInput" name="confirm_password"
+                 placeholder="Password"
+                 type="password">
+        </div>
+        <button class="btn btn-secondary" data-bs-target="#exampleModal" data-bs-toggle="modal"
+                id="submit"
+                type="submit">Register
+        </button>
+        <br>
+        <a routerLink="/login">Already have an account?</a>
+      </form>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+       tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registration Status</h5>
+          <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                  type="button"></button>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <p id="modal_text"></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal" id="modalCloseButton"
+                  type="button">Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

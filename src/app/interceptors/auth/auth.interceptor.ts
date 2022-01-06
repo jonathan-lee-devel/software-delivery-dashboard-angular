@@ -42,6 +42,10 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private handleAuthError(error: HttpErrorResponse): Observable<any> {
+    if (error.status === 400) {
+      window.alert(JSON.stringify(error.error.errors[0].msg));
+    }
+
     if (error.status === 401) {
       this.router.navigate(['/login']);
       window.alert('Invalid login credentials');
@@ -50,6 +54,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
     if (error.status === 403) {
       this.router.navigate(['/error/forbidden']);
+    }
+
+    if (error.status === 409) {
+      window.alert('User already exists!');
     }
     throw error;
   }
