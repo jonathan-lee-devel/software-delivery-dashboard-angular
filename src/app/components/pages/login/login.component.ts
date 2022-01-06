@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  username: string = '';
+  email: string = '';
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -16,12 +16,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   doLogin() {
-    this.authService
-      .validate(this.username, this.password)
-      .subscribe((value) => {
-        if (value.login_status === 'SUCCESS') {
-          this.router.navigate(['/']);
-        }
-      });
+    this.authService.validate(this.email, this.password);
   }
 }

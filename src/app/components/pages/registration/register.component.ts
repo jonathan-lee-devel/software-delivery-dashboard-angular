@@ -8,8 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  name: string = '';
-  username: string = '';
+  email: string = '';
   password: string = '';
   confirmPassword: string = '';
 
@@ -22,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
   doRegister() {
     this.registrationService
-      .register(this.name, this.username, this.password, this.confirmPassword)
+      .register(this.email, this.password, this.confirmPassword)
       .subscribe((response) => {
         if (response.registration_status === 'AWAITING_EMAIL_VERIFICATION') {
           window.alert('Awaiting E-mail Verification');

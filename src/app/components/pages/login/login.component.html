@@ -7,17 +7,16 @@
 <div class="main">
   <div class="col-md-6 col-sm-12">
     <div class="login-form">
-      <form id="form" method="post">
-        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+      <form (ngSubmit)="doLogin()" id="form" method="post">
         <div class="form-group">
           <label for="emailInput">E-mail Address</label>
-          <input class="form-control" id="emailInput" name="username"
+          <input [(ngModel)]="email" class="form-control" id="emailInput" name="email"
                  placeholder="email@ericsson.com" type="email">
           <small>Only valid Ericsson e-mail addresses are accepted</small>
         </div>
         <div class="form-group">
           <label for="passwordInput">Password</label>
-          <input class="form-control" id="passwordInput" name="password" placeholder="Password"
+          <input [(ngModel)]="password" class="form-control" id="passwordInput" name="password" placeholder="Password"
                  type="password">
         </div>
         <button class="btn btn-black" id="submit" type="submit">Login

@@ -10,13 +10,15 @@ import {
 import { catchError, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private cookieService: CookieService,
-    private tokenExtractor: HttpXsrfTokenExtractor
+    private tokenExtractor: HttpXsrfTokenExtractor,
+    private authService: AuthService
   ) {}
 
   intercept(
@@ -27,15 +29,18 @@ export class AuthInterceptor implements HttpInterceptor {
       'X-XSRF-TOKEN',
       <string>this.tokenExtractor.getToken()
     );
+    request = request.clone({
+      withCredentials: true,
+    });
+
     const cookieHeaderName = 'X-XSRF-TOKEN';
     let csrfToken = this.tokenExtractor.getToken() as string;
-    console.log(`csrfToken = ${csrfToken}`);
     if (csrfToken !== null && !request.headers.has(cookieHeaderName)) {
       request = request.clone({
         headers: request.headers.set(cookieHeaderName, csrfToken),
       });
     }
-    console.log(`request = ${JSON.stringify(request)}`);
+
     return next
       .handle(request)
       .pipe(catchError((err) => this.handleAuthError(err)));
@@ -47,7 +52,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     if (error.status === 401) {
-      this.router.navigate(['/login']);
+      this.authService.logout();
       window.alert('Invalid login credentials');
       return of(error.message);
     }

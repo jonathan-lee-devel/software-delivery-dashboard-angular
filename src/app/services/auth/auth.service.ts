@@ -1,18 +1,27 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { LoginDto } from '../../dtos/LoginDto';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private static readonly USER_DATA_KEY: string = 'userInfo';
+  @Output() isLoggedIn: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
-  public isAuthenticated(): boolean {
+  public isAuthenticated(): Observable<boolean> {
     const userData = localStorage.getItem(AuthService.USER_DATA_KEY);
-    return !!(userData && JSON.parse(userData));
+    this.isLoggedIn.next(!!(userData && JSON.parse(userData)));
+    return this.isLoggedIn;
   }
 
   public setUserInfo(user: any) {
@@ -24,9 +33,24 @@ export class AuthService {
       .set('username', username)
       .set('password', password);
 
-    return this.httpClient.post<LoginDto>(
-      `http://localhost:4200/api/users/login`,
-      body
-    );
+    this.httpClient
+      .post<LoginDto>(`http://localhost:4200/api/users/login`, body, {
+        withCredentials: true,
+      })
+      .subscribe((response) => {
+        if (response.login_status === 'SUCCESS') {
+          this.setUserInfo({});
+          this.router.navigate(['/jobs']);
+        }
+      });
+  }
+
+  logout() {
+    this.httpClient
+      .post<LoginDto>(`http://localhost:4200/api/users/logout`, {})
+      .subscribe((_) => {
+        this.router.navigate(['/login']);
+      });
+    this.isLoggedIn.next(false);
   }
 }

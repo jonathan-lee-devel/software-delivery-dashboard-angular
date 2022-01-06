@@ -8,15 +8,9 @@ import { RegisterDto } from '../../dtos/ auth/RegisterDto';
 export class RegistrationService {
   constructor(private httpClient: HttpClient) {}
 
-  public register(
-    name: string,
-    username: string,
-    password: string,
-    confirmPassword: string
-  ) {
+  public register(email: string, password: string, confirmPassword: string) {
     const body = {
-      name,
-      email: username,
+      email,
       password,
       confirm_password: confirmPassword,
     };
