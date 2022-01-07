@@ -24,7 +24,6 @@ export class RegisterComponent implements OnInit {
       .register(this.email, this.password, this.confirmPassword)
       .subscribe((response) => {
         if (response.registration_status === 'AWAITING_EMAIL_VERIFICATION') {
-          window.alert('Awaiting E-mail Verification');
           this.router.navigate(['/login']);
         } else {
           window.alert(response.registration_status);
