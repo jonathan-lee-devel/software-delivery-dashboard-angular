@@ -21,6 +21,7 @@ export class JobComponent implements OnInit {
       number: -1,
     },
   };
+  isJobLoaded: boolean = false;
 
   constructor(private router: Router, private jobsService: JobService) {
     let jobName = this.router.url.split('/').pop();
@@ -29,6 +30,7 @@ export class JobComponent implements OnInit {
     }
     this.jobsService.getJob(jobName).subscribe((job) => {
       this.job = job;
+      this.isJobLoaded = true;
     });
   }
 

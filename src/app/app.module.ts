@@ -21,6 +21,7 @@ import { JobComponent } from './components/pages/job/job.component';
 import { JobsComponent } from './components/pages/jobs/jobs.component';
 import { MetricsComponent } from './components/pages/metrics/metrics.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { BuildComponent } from './components/pages/build/build.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ModalComponent } from './components/modal/modal.component';
     ForbiddenComponent,
     JobComponent,
     JobsComponent,
+    BuildComponent,
     MetricsComponent,
     ModalComponent,
   ],

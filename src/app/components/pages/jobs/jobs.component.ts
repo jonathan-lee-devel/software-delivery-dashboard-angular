@@ -9,10 +9,12 @@ import { JobService } from '../../../services/jobs/job.service';
 })
 export class JobsComponent implements OnInit {
   jobs: JobDto[] = [];
+  isJobsLoaded: boolean = false;
 
   constructor(private jobService: JobService) {
     this.jobService.getAllJobs().subscribe((jobs) => {
       this.jobs = jobs;
+      this.isJobsLoaded = true;
     });
   }
 

@@ -1,5 +1,5 @@
-<h1>{{job.name}} - <a routerLink="/jobs/{{job.name}}/metrics">Metrics</a></h1>
-<div class="container">
+<div *ngIf="isJobLoaded" class="container">
+  <h1>{{job.name}} - <a routerLink="/jobs/{{job.name}}/metrics">Metrics</a></h1>
   <table class="table table-striped">
     <caption>Table containing a list of builds for the selected job</caption>
     <thead>
@@ -13,4 +13,7 @@
     </tr>
     </tbody>
   </table>
+</div>
+<div *ngIf="!isJobLoaded" class="text-center">
+  <img alt="Loading icon" src="assets/spinner-large.gif"/>
 </div>

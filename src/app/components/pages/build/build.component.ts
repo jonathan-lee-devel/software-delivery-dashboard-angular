@@ -16,6 +16,7 @@ export class BuildComponent implements OnInit {
     timestamp: 0,
     result: '',
   };
+  isBuildLoaded: boolean = false;
   formattedBuildTimestamp: string | undefined = '';
   formattedBuildDuration: string | undefined = '';
 
@@ -38,6 +39,7 @@ export class BuildComponent implements OnInit {
         this.formattedBuildTimestamp = new Date(
           this.build.timestamp * 1000
         ).toString();
+        this.isBuildLoaded = true;
       });
   }
 

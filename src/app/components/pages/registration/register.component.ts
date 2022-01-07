@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationService } from '../../../services/auth/registration.service';
 import { Router } from '@angular/router';
+import { ModalService } from '../../../services/modal/modal.service';
 
 @Component({
   selector: 'app-registration',
@@ -14,7 +15,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private registrationService: RegistrationService,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {}
@@ -24,6 +26,10 @@ export class RegisterComponent implements OnInit {
       .register(this.email, this.password, this.confirmPassword)
       .subscribe((response) => {
         if (response.registration_status === 'AWAITING_EMAIL_VERIFICATION') {
+          this.modalService.showModal(
+            'Registration Status',
+            'Awaiting e-mail verification, please check your inbox'
+          );
           this.router.navigate(['/login']);
         } else {
           window.alert(response.registration_status);

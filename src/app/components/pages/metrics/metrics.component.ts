@@ -14,20 +14,28 @@ import { BuildComponent } from '../build/build.component';
 })
 export class MetricsComponent implements OnInit {
   jobName: string | undefined = '';
+
   failureSuccessRate: FailureSuccessRateDto = {
-    failure_rate: 0,
-    success_rate: 0,
+    failure_rate: -1,
+    success_rate: -1,
   };
+  isFailureSuccessRateLoaded: boolean = false;
+
   numberOfDeliveries: NumberOfDeliveriesDto = {
-    number_of_deliveries: 0,
+    number_of_deliveries: -1,
   };
+  isNumberOfDeliveriesLoaded: boolean = false;
+
   deliveryTime: DeliveryTimeDto = {
-    delivery_time: 0,
-  };
-  restoreTime: RestoreTimeDto = {
-    restore_time: 0,
+    delivery_time: -1,
   };
   formattedDeliveryTime: string | undefined = '';
+  isDeliveryTimeLoaded: boolean = false;
+
+  restoreTime: RestoreTimeDto = {
+    restore_time: -1,
+  };
+  isRestoreTimeLoaded: boolean = false;
   formattedRestoreTime: string | undefined = '';
 
   constructor(private router: Router, private metricsService: MetricsService) {
@@ -47,11 +55,13 @@ export class MetricsComponent implements OnInit {
           Math.round(
             (this.failureSuccessRate.success_rate + Number.EPSILON) * 100
           ) / 100;
+        this.isFailureSuccessRateLoaded = true;
       });
     metricsService
       .getNumberOfDeliveries(this.jobName)
       .subscribe((numberOfDeliveries) => {
         this.numberOfDeliveries = numberOfDeliveries;
+        this.isNumberOfDeliveriesLoaded = true;
       });
     metricsService.getDeliveryTime(this.jobName).subscribe((deliveryTime) => {
       this.deliveryTime = deliveryTime;
@@ -61,6 +71,7 @@ export class MetricsComponent implements OnInit {
         this.formattedDeliveryTime = `${BuildComponent.millisToMinutesAndSeconds(
           deliveryTime.delivery_time
         )} (MM:SS)`;
+        this.isDeliveryTimeLoaded = true;
       }
     });
     metricsService.getRestoreTime(this.jobName).subscribe((restoreTime) => {
@@ -68,6 +79,7 @@ export class MetricsComponent implements OnInit {
       this.formattedRestoreTime = MetricsComponent.nanosecondsToSeconds(
         restoreTime.restore_time
       );
+      this.isRestoreTimeLoaded = true;
     });
   }
 

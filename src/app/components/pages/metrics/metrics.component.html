@@ -10,19 +10,26 @@
   <tbody>
   <tr>
     <th scope="row">Failure / Success Rate</th>
-    <td colspan="2">{{failureSuccessRate.failure_rate}}% Failure / {{failureSuccessRate.success_rate}}% Success</td>
+    <td *ngIf="isFailureSuccessRateLoaded" colspan="2">{{failureSuccessRate.failure_rate}}% Failure
+      / {{failureSuccessRate.success_rate}}% Success
+    </td>
+    <td *ngIf="!isFailureSuccessRateLoaded" colspan="2"><img alt="Loading icon"
+                                                             src="assets/spinner-small.gif"/></td>
   </tr>
   <tr>
     <th scope="row">Number of Deliveries</th>
-    <td colspan="2">{{numberOfDeliveries.number_of_deliveries}}</td>
+    <td *ngIf="isNumberOfDeliveriesLoaded" colspan="2">{{numberOfDeliveries.number_of_deliveries}}</td>
+    <td *ngIf="!isNumberOfDeliveriesLoaded" colspan="2"><img alt="Loading icon" src="assets/spinner-small.gif"/></td>
   </tr>
   <tr>
     <th scope="row">Delivery Time</th>
-    <td colspan="2">{{this.formattedDeliveryTime}}</td>
+    <td *ngIf="isDeliveryTimeLoaded" colspan="2">{{this.formattedDeliveryTime}}</td>
+    <td *ngIf="!isDeliveryTimeLoaded" colspan="2"><img alt="Loading icon" src="assets/spinner-small.gif"/></td>
   </tr>
   <tr>
     <th scope="row">Restore Time</th>
-    <td colspan="2">{{this.formattedRestoreTime}} Seconds</td>
+    <td *ngIf="isRestoreTimeLoaded" colspan="2">{{this.formattedRestoreTime}} Seconds</td>
+    <td *ngIf="!isRestoreTimeLoaded" colspan="2"><img alt="Loading icon" src="assets/spinner-small.gif"/></td>
   </tr>
   </tbody>
 </table>
