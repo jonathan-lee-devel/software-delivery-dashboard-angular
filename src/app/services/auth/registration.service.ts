@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterDto } from '../../dtos/ auth/RegisterDto';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class RegistrationService {
     };
 
     return this.httpClient.post<RegisterDto>(
-      'http://localhost:4200/api/users/register',
+      `${environment.FRONT_END_API_URL}/users/register`,
       body
     );
   }

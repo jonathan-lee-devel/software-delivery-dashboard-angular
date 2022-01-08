@@ -4,6 +4,7 @@ import { LoginDto } from '../../dtos/LoginDto';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,7 @@ export class AuthService {
       .set('password', password);
 
     this.httpClient
-      .post<LoginDto>(`http://localhost:4200/api/users/login`, body, {
+      .post<LoginDto>(`${environment.FRONT_END_API_URL}/users/login`, body, {
         withCredentials: true,
       })
       .subscribe((response) => {
@@ -47,7 +48,7 @@ export class AuthService {
 
   logout() {
     this.httpClient
-      .post<LoginDto>(`http://localhost:4200/api/users/logout`, {})
+      .post<LoginDto>(`${environment.FRONT_END_API_URL}/users/logout`, {})
       .subscribe((_) => {
         this.router.navigate(['/login']);
       });
