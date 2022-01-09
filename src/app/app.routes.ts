@@ -9,7 +9,12 @@ import { BuildComponent } from './components/pages/build/build.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 
 export const appRoutes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'jobs' },
+  {
+    path: '',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    redirectTo: 'login',
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'error/forbidden', component: ForbiddenComponent },
